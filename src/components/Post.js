@@ -1,13 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import { ArrowDownIcon, ArrowUpIcon, BookmarkIcon, ChatBubbleLeftEllipsisIcon, EllipsisHorizontalIcon, GiftIcon, ShareIcon } from '@heroicons/react/24/outline'
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  BookmarkIcon,
+  ChatBubbleLeftEllipsisIcon,
+  EllipsisHorizontalIcon,
+  GiftIcon,
+  ShareIcon
+} from '@heroicons/react/24/outline'
 import Avatar from './Avatar'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Jelly } from '@uiball/loaders';
 
 function Post({ post }) {
   const [imageDimensions, setImageDimensions] = useState({});
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  if (post === undefined) {
+    return (
+      <div className='flex w-full items-center justify-center p-10 text-xl'>
+        <Jelly size={50} color="#FF4501" />
+      </div>
+    )
+  }
 
   return (
     <Link href={`/post/${post.node.id}`}>
