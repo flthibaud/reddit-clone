@@ -4,7 +4,15 @@ import { GET_ALL_POSTS } from '../graphql/queries';
 import Post from './Post';
 
 function Feed() {
-  const { data, error } = useQuery(GET_ALL_POSTS);
+  const { data, error } = useQuery(GET_ALL_POSTS, {
+    variables: {
+      orderBy: [
+        {
+          created_at: "DescNullsFirst"
+        }
+      ]
+    },
+  });
 
   const posts = data?.postCollection?.edges;
 

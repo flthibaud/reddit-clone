@@ -35,27 +35,29 @@ function Post({ post }) {
         </div>
 
         {/* Image */}
-        <div className='relative'>
-          <Image
-            src={post.node.image}
-            alt='Post Image'
-            className='rounded-md'
-            priority={true}
-            objectFit='cover'
-            placeholder='blur'
-            layout={imageLoaded ? '' : 'fill'}
-            blurDataURL={post.node.image}
-            width={imageDimensions.width}
-            height={imageDimensions.height}
-            onLoadingComplete={target => {
-              setImageLoaded(true);
-              setImageDimensions({
-                width: target.naturalWidth,
-                height: target.naturalHeight
-              });
-            }}
-          />
-        </div>
+        {post.node.image && (
+          <div className='relative'>
+            <Image
+              src={post.node.image}
+              alt='Post Image'
+              className='rounded-md'
+              priority={true}
+              objectFit='cover'
+              placeholder='blur'
+              layout={imageLoaded ? '' : 'fill'}
+              blurDataURL={post.node.image}
+              width={imageDimensions.width}
+              height={imageDimensions.height}
+              onLoadingComplete={target => {
+                setImageLoaded(true);
+                setImageDimensions({
+                  width: target.naturalWidth,
+                  height: target.naturalHeight
+                });
+              }}
+            />
+          </div>
+        )}
 
         {/* Footer */}
         <div className='flex space-x-4 text-gray-400'>

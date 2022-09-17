@@ -7,12 +7,17 @@ import client from '../../apollo-client';
 
 import Avatar from './Avatar';
 import { ADD_POST, ADD_SUBREDDIT } from '../graphql/mutations';
-import { GET_SUBREDDIT_BY_TOPIC } from '../graphql/queries';
+import { GET_ALL_POSTS, GET_SUBREDDIT_BY_TOPIC } from '../graphql/queries';
 import toast from 'react-hot-toast';
 
 function PostBox() {
   const { data: session } = useSession();
-  const [addPost] = useMutation(ADD_POST);
+  const [addPost] = useMutation(ADD_POST, {
+    refetchQueries: [
+      GET_ALL_POSTS,
+      'getAllPosts',
+    ],
+  });
   const [addSubreddit] = useMutation(ADD_SUBREDDIT);
   const [imageBoxOpen, setImageBoxOpen] = useState(false);
   const {

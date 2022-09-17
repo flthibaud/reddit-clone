@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_POSTS = gql`
-  query getAllPosts {
-    postCollection {
+  query getAllPosts($orderBy: [postOrderBy!]) {
+    postCollection(orderBy: $orderBy) {
       edges {
         node {
           body
