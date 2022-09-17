@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   BellIcon,
@@ -19,6 +19,35 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 function Header() {
   const { data: session } = useSession();
+  const [userInfo, setUserInfo] = useState(null)
+
+  useEffect(() => {
+    async function getUserImage() {
+      const res = await fetch(`https://www.reddit.com/user/${session?.user?.name}/about.json`)
+      const data = await res.json()
+      
+      if (data.data.snoovatar_img) {
+        setUserInfo({
+          image: data.data.snoovatar_img,
+          karma: data.data.total_karma
+        })
+      } else {
+        setUserInfo({
+          image: data.data.icon_img,
+          karma: data.data.total_karma
+        })
+      }
+    }
+
+    if (session) {
+      getUserImage()
+    }
+
+    return () => {
+      setUserInfo(null)
+    }
+  }, [session])
+
   return (
     <div className='sticky top-0 z-50 flex bg-white px-4 py-2 shadow-sm'>
       <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
@@ -66,8 +95,8 @@ function Header() {
         >
           <div className='relative h-5 w-5 flex-shrink-0'>
             <Image
-              src="/images/reddit-head.png"
-              alt="logo reddit"
+              src={userInfo?.image || '/images/reddit-head.png'}
+              alt="Avatar"
               layout='fill'
               objectFit='contain'
               height={5}
@@ -77,7 +106,7 @@ function Header() {
   
           <div className='flex-1 text-xs'>
             <p className='truncate'>{session?.user?.name}</p>
-            <p className='text-sm font-semibold text-gray-400'>1 Karma</p>
+            <p className='text-sm font-semibold text-gray-400'>{userInfo?.karma} karma</p>
           </div>
 
           <ChevronDownIcon className='h-5 w-5 flex-shrink-0 text-gray-400' />

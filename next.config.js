@@ -8,6 +8,7 @@ const nextConfig = {
       'avatars.dicebear.com',
       'www.redditstatic.com',
       'i.redd.it',
+      'i.picsum.photos',
     ],
   },
 }
