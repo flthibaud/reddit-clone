@@ -45,6 +45,57 @@ export const GET_ALL_POSTS = gql`
   }
 `;
 
+export const GET_ALL_POST_BY_TOPIC = gql`
+query getAllPostsByTopic($orderBy: [postOrderBy!], $filter: subredditFilter) {
+  subredditCollection(filter: $filter) {
+    edges {
+      node {
+        postCollection(orderBy: $orderBy) {
+          edges {
+            node {
+              id
+              created_at
+              title
+              body
+              image
+              username
+              subreddit_id
+              commentCollection {
+                edges {
+                  node {
+                    id
+                    created_at
+                    post_id
+                    text
+                    username
+                  }
+                }
+              }
+              voteCollection {
+                edges {
+                  node {
+                    id
+                    created_at
+                    post_id
+                    upvote
+                    username
+                  }
+                }
+              }
+              subreddit {
+                id
+                created_at
+                topic
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
 export const GET_SUBREDDIT_BY_TOPIC = gql`
 query ExampleQuery($topic: String!) {
   subredditCollection(filter: {topic: {eq: $topic}}) {
