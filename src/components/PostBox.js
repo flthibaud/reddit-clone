@@ -23,6 +23,8 @@ function PostBox() {
     formState: { errors },
   } = useForm();
 
+  console.log('session', session);
+
   const onSubmit = handleSubmit(async (formData) => {
     console.log(formData.subreddit);
     const notification = toast.loading('Creating new post...');
