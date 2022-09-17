@@ -18,7 +18,13 @@ function Avatar({ seed, large }) {
       }
     }
 
-    getUserImage()
+    if (session) {
+      getUserImage()
+    }
+
+    return () => {
+      setAvatar(null)
+    }
   }, [session])
 
   return (
