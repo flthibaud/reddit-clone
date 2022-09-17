@@ -31,6 +31,7 @@ function PostBox() {
       // Query for the subreddit topic
       const { data: getSubredditListByTopic } = await client.query({
         query: GET_SUBREDDIT_BY_TOPIC,
+        fetchPolicy: 'no-cache',
         variables: {
           topic: formData.subreddit,
         },
