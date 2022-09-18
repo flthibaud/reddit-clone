@@ -1,5 +1,21 @@
 import { gql } from "@apollo/client";
 
+export const GET_ALL_VOTES_BY_POST_ID = gql`
+  query getAllVotesByPostId($orderBy: [voteOrderBy!], $filter: voteFilter) {
+    voteCollection(orderBy: $orderBy, filter: $filter) {
+      edges {
+        node {
+          id
+          created_at
+          post_id
+          upvote
+          username
+        }
+      }
+    }
+  }
+`;
+
 export const GET_POST_BY_POST_ID = gql`
   query getPostByPostId($filter: postFilter) {
     postCollection(filter: $filter) {

@@ -14,6 +14,20 @@ export const ADD_COMMENT = gql`
   }
 `;
 
+export const ADD_VOTE = gql`
+  mutation addVote($objects: [voteInsertInput!]!) {
+    insertIntovoteCollection(objects: $objects) {
+      records {
+        id
+        created_at
+        post_id
+        upvote
+        username
+      }
+    }
+  }
+`;
+
 export const ADD_POST = gql`
   mutation addPost($title: String!, $body: String!, $subreddit_id: ID!, $image: String, $username: String!) {
     insertIntopostCollection(objects: [{ title: $title, body: $body, subreddit_id: $subreddit_id, image: $image, username: $username }]) {
