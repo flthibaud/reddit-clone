@@ -61,10 +61,10 @@ function PostPage() {
 
   return (
     <div className='mx-auto my-7 max-w-5xl'>
-      <Post post={post} />
+      <Post post={post} isSingle={true} />
 
       {/* Comments Form */}
-      <div className='-mt-1 rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16'>
+      <div className='-mt-1 rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16 dark:bg-[#1A1A1B] dark:border-gray-600'>
         <p className='text-sm'>
           Comment as <span className='text-red-500'>{session?.user?.name}</span>
         </p>
@@ -91,7 +91,7 @@ function PostPage() {
       </div>
 
       {/* Comments */}
-      <div className='-my-5 rounded-b-md border border-t-0 border-gray-300 bg-white py-5 px-10'>
+      <div className='-my-5 rounded-b-md border border-t-0 border-gray-300 bg-white py-5 px-10 dark:bg-[#1A1A1B] dark:border-gray-600 overflow-hidden'>
         <hr className='py-2' />
         {post?.node?.commentCollection?.edges.map((comment) => (
           <div
@@ -105,7 +105,7 @@ function PostPage() {
 
             <div className='flex flex-col'>
               <p className='py-2 text-xs text-gray-400'>
-                <span className='font-semibold text-gray-600'>{comment.node.username}</span>
+                <span className='font-semibold text-gray-600 dark:text-gray-200'>{comment.node.username}</span>
                 {' '}
                 {moment(comment.node.created_at).fromNow()}
               </p>

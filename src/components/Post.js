@@ -20,7 +20,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_ALL_VOTES_BY_POST_ID } from '../graphql/queries'
 import { ADD_VOTE } from '../graphql/mutations'
 
-function Post({ post }) {
+function Post({ post, isSingle }) {
   const [imageDimensions, setImageDimensions] = useState({});
   const [imageLoaded, setImageLoaded] = useState(false);
   const [vote, setVote] = useState(undefined);
@@ -95,14 +95,14 @@ function Post({ post }) {
 
   return (
     <Link href={`/post/${post.node.id}`}>
-      <div className='flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border hover:border-gray-600'>
+      <div className='flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border hover:border-gray-600 dark:bg-[#1A1A1B] dark:hover:border-gray-300 dark:border-gray-600'>
         {/* Votes */}
-        <div className='flex flex-col items-center justify-start space-y-1 rounded-l-md bg-gray-50 p-4 text-gray-400'>
+        <div className={`flex flex-col items-center justify-start space-y-1 rounded-l-md bg-gray-50 p-4 text-gray-400 ${isSingle ? 'dark:bg-[#1A1A1B]' : 'dark:bg-[#161617]'}`}>
           <ArrowUpIcon
             className={`voteButtons hover:text-red-400 ${vote &&'text-red-400'}`}
             onClick={() => upVote(true)}
           />
-          <p className='text-black font-bold text-xs'>
+          <p className='text-black font-bold text-xs dark:text-white'>
             {displayVotes(data)}
           </p>
           <ArrowDownIcon
@@ -117,7 +117,7 @@ function Post({ post }) {
             <Avatar seed={ post.node.subreddit.topic } />
             <p className='text-xs text-gray-400'>
               <Link href={`/subreddit/${post.node.subreddit.topic}`}>
-                <span className='font-bold text-black hover:text-blue-400 hover:underline'>r/{ post.node.subreddit.topic }</span>
+                <span className='font-bold text-black hover:text-blue-400 hover:underline dark:text-white'>r/{ post.node.subreddit.topic }</span>
               </Link>
               {' '}
               • Posted by u/{post.node.username} {moment(post.node.created_at).fromNow()}

@@ -20,7 +20,7 @@ import Link from 'next/link';
 
 function Header() {
   const { data: session } = useSession();
-  const [userInfo, setUserInfo] = useState(null)
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     async function getUserImage() {
@@ -50,7 +50,7 @@ function Header() {
   }, [session])
 
   return (
-    <div className='sticky top-0 z-50 flex bg-white px-4 py-2 shadow-sm items-center'>
+    <div className='sticky top-0 z-50 flex bg-white px-4 py-2 shadow-sm items-center dark:bg-[#1A1A1B]'>
       <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
         <Link href="/">
           <Image
@@ -69,18 +69,18 @@ function Header() {
       </div>
 
       {/* Search */}
-      <form className='flex flex-1 items-center space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-3 py-1'>
+      <form className='flex flex-1 items-center space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-3 py-1 dark:bg-[#272729] dark:border-gray-600'>
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
         <input className='flex-1 bg-transparent outline-none' type="text" placeholder='Search Reddit' />
         <button type='submit' hidden />
       </form>
 
       {/* Icons */}
-      <div className='text-gray-500 items-center space-x-2 mx-5 hidden lg:inline-flex'>
+      <div className='text-gray-500 items-center space-x-2 mx-5 hidden lg:inline-flex dark:text-[#d7dadc]'>
         <SparklesIcon className='icon' />
         <GlobeEuropeAfricaIcon className='icon' />
         <VideoCameraIcon className='icon' />
-        <hr className='h-10 border border-gray-100' />
+        <hr className='h-10 border border-gray-100 dark:border-gray-600' />
         <ChatBubbleOvalLeftEllipsisIcon className='icon' />
         <BellIcon className='icon' />
         <PlusIcon className='icon' />
@@ -94,7 +94,7 @@ function Header() {
       {session ? (
         <div
           onClick={() => signOut()}
-          className='hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer'
+          className='hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer dark:border-gray-600'
         >
           <div className='relative h-5 w-5 flex-shrink-0'>
             <Image

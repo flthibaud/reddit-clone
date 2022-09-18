@@ -108,7 +108,7 @@ function PostBox({ subreddit }) {
   return (
     <form
       onSubmit={onSubmit}
-      className='sticky top-20 z-50 bg-white border rounded-md border-gray-300 p-2'
+      className='sticky top-20 z-50 bg-white border rounded-md border-gray-300 p-2 dark:bg-[#1A1A1B] dark:border-gray-600'
     >
       <div className='flex items-center space-x-3'>
         {/* Avatar */}
@@ -117,7 +117,7 @@ function PostBox({ subreddit }) {
         <input
           {...register('postTitle', { required: true })}
           disabled={!session}
-          className="bg-gray-50 p-2 pl-5 outline-none rounded-md flex-1"
+          className="bg-gray-50 p-2 pl-5 outline-none rounded-md flex-1 dark:bg-[#272729]"
           type="text"
           placeholder={session ? subreddit ? `Create a post in r/${subreddit}` : 'Create a post by entering a title !' : 'Sign in to post'}
         />
@@ -134,7 +134,7 @@ function PostBox({ subreddit }) {
               {...register('postBody')}
               type="text"
               placeholder='Text (optional)'
-              className='m-2 flex-1 bg-blue-50 outline-none'
+              className='m-2 flex-1 bg-blue-50 outline-none dark:bg-[#272729] px-2'
             />
           </div>
 
@@ -145,7 +145,7 @@ function PostBox({ subreddit }) {
                 {...register('subreddit', { required: true })}
                 type="text"
                 placeholder='i.e. reactjs'
-                className='m-2 flex-1 bg-blue-50 outline-none'
+                className='m-2 flex-1 bg-blue-50 outline-none dark:bg-[#272729] px-2'
               />
             </div>
           )}
@@ -157,7 +157,7 @@ function PostBox({ subreddit }) {
                 {...register('postImage')}
                 type="text"
                 placeholder='Optional'
-                className='m-2 flex-1 bg-blue-50 outline-none'
+                className='m-2 flex-1 bg-blue-50 outline-none dark:bg-[#272729] px-2'
               />
             </div>
           )}
