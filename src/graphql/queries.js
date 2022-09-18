@@ -16,6 +16,20 @@ export const GET_ALL_VOTES_BY_POST_ID = gql`
   }
 `;
 
+export const GET_SUBREDDIT_WITH_LIMIT = gql`
+  query getSubredditWithLimit($first: Int) {
+    subredditCollection(first: $first) {
+      edges {
+        node {
+          id
+          created_at
+          topic
+        }
+      }
+    }
+  }
+`;
+
 export const GET_POST_BY_POST_ID = gql`
   query getPostByPostId($filter: postFilter) {
     postCollection(filter: $filter) {
