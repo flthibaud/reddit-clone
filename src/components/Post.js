@@ -95,7 +95,7 @@ function Post({ post, isSingle }) {
 
   return (
     <Link href={`/post/${post.node.id}`}>
-      <div className='flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border hover:border-gray-600 dark:bg-[#1A1A1B] dark:hover:border-gray-300 dark:border-gray-600'>
+      <div className={`flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border hover:border-gray-600 dark:bg-[#1A1A1B] ${isSingle ? 'cursor-default' : 'dark:hover:border-gray-300'} dark:border-gray-600`}>
         {/* Votes */}
         <div className={`flex flex-col items-center justify-start space-y-1 rounded-l-md bg-gray-50 p-4 text-gray-400 ${isSingle ? 'dark:bg-[#1A1A1B]' : 'dark:bg-[#161617]'}`}>
           <ArrowUpIcon

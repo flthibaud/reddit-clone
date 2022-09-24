@@ -47,12 +47,15 @@ export default function Home() {
             </div>
           </div>
 
-          <div className='rounded-md border-gray-300 bg-white dark:bg-[#1A1A1B]'>
-            <p className='text-md mb-1 p-4 pb-3 font-bold'>Settings</p>
+          <div className='rounded-md border-gray-300 bg-white dark:bg-[#1A1A1B] px-4 py-4'>
+            <p className='text-md mb-1 pb-3 font-bold'>Settings</p>
 
             {/* Settings */}
-            <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-              toggle
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'
+            >
+              Toggle dark / light mode
             </button>
           </div>
         </div>

@@ -16,11 +16,26 @@ import {
   Bars3Icon,
 } from '@heroicons/react/24/solid';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
+import client from '../../apollo-client';
 import Link from 'next/link';
+import { useRouter } from "next/router";
+
+import { GET_SEARCH } from '../graphql/queries';
+import useSearch from '../store/store';
 
 function Header() {
   const { data: session } = useSession();
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState(null);
+  const setSearch = useSearch((state) => state.setSearchResult);
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     async function getUserImage() {
@@ -49,6 +64,38 @@ function Header() {
     }
   }, [session])
 
+  const onSubmit = handleSubmit(async (formData) => {
+    try {
+      // Query for the subreddit topic
+      const { data: searchResult, loading } = await client.query({
+        query: GET_SEARCH,
+        fetchPolicy: 'no-cache',
+        variables: {
+          filter: {
+            title: {
+              gt: formData.searchField,
+            }
+          },
+          subredditCollectionFilter2: {
+            topic: {
+              gt: formData.searchField,
+            }
+          },
+          commentCollectionFilter2: {
+            text: {
+              gt: formData.searchField,
+            }
+          }
+        }
+      });
+
+      setSearch(searchResult);
+      router.push("/search");
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   return (
     <div className='sticky top-0 z-50 flex bg-white px-4 py-2 shadow-sm items-center dark:bg-[#1A1A1B]'>
       <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
@@ -69,9 +116,17 @@ function Header() {
       </div>
 
       {/* Search */}
-      <form className='flex flex-1 items-center space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-3 py-1 dark:bg-[#272729] dark:border-gray-600'>
+      <form
+        onSubmit={onSubmit}
+        className='flex flex-1 items-center space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-3 py-1 dark:bg-[#272729] dark:border-gray-600'
+      >
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
-        <input className='flex-1 bg-transparent outline-none' type="text" placeholder='Search Reddit' />
+        <input
+          {...register('searchField', { required: true })}
+          className='flex-1 bg-transparent outline-none'
+          type="text"
+          placeholder='Search Reddit'
+        />
         <button type='submit' hidden />
       </form>
 

@@ -172,15 +172,80 @@ query getAllPostsByTopic($orderBy: [postOrderBy!], $filter: subredditFilter) {
 `;
 
 export const GET_SUBREDDIT_BY_TOPIC = gql`
-query ExampleQuery($topic: String!) {
-  subredditCollection(filter: {topic: {eq: $topic}}) {
-    edges {
-      node {
-        id
-        topic
-        created_at
+  query ExampleQuery($topic: String!) {
+    subredditCollection(filter: {topic: {eq: $topic}}) {
+      edges {
+        node {
+          id
+          topic
+          created_at
+        }
       }
     }
   }
-}
-`
+`;
+
+export const GET_SEARCH = gql`
+  query getSearch($filter: postFilter, $subredditCollectionFilter2: subredditFilter, $commentCollectionFilter2: commentFilter) {
+    post: postCollection(filter: $filter) {
+      edges {
+        node {
+          body
+          created_at
+          id
+          image
+          title
+          subreddit_id
+          username
+          subreddit {
+            id
+            created_at
+            topic
+          }
+          voteCollection {
+            edges {
+              node {
+                created_at
+                id
+                post_id
+                upvote
+                username
+              }
+            }
+          }
+          commentCollection {
+            edges {
+              node {
+                created_at
+                id
+                post_id
+                text
+                username
+              }
+            }
+          }
+        }
+      }
+    }
+    subreddit: subredditCollection(filter: $subredditCollectionFilter2) {
+      edges {
+        node {
+          id
+          created_at
+          topic
+        }
+      }
+    }
+    comment: commentCollection(filter: $commentCollectionFilter2) {
+      edges {
+        node {
+          id
+          created_at
+          post_id
+          text
+          username
+        }
+      }
+    }
+  }
+`;
